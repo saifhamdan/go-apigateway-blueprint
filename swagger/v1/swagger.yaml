@@ -1,0 +1,226 @@
+basePath: /swagger/v1
+definitions:
+  github_com_saifhamdan_go-apigateway-blueprint_models_v1.User:
+    properties:
+      created_at:
+        type: string
+      created_by:
+        type: integer
+      email:
+        type: string
+      family_name:
+        type: string
+      first_name:
+        type: string
+      id:
+        type: integer
+      phone:
+        type: string
+      updated_at:
+        type: string
+      updated_by:
+        type: integer
+      user_password:
+        type: string
+      username:
+        type: string
+    type: object
+  github_com_saifhamdan_go-apigateway-blueprint_pkg_http.HttpResponse:
+    properties:
+      code:
+        description: Http status Code
+        type: integer
+      data:
+        description: if the request were successful the data will be saved here
+      error:
+        description: Generic General Error Message defined in the system
+        type: string
+      message:
+        description: More detailed error message indicates why the request was unsuccessful
+        type: string
+      success:
+        description: Response flag indicates whether the HTTP request was successful
+          or not
+        type: boolean
+    type: object
+host: localhost:8888
+info:
+  contact:
+    email: support@saifhamdan14gmail.com
+    name: API Support
+  description: Gateway APIs Docs for API Blueprint made by Saif Hamdan
+  license:
+    name: Generic Portal
+    url: https://saifhamdan14@gmail.com
+  termsOfService: https://saifhamdan14@gmail.com
+  title: Gateway API Blueprint
+  version: "1.0"
+paths:
+  /api/v1/users:
+    get:
+      consumes:
+      - application/json
+      description: Get Users
+      operationId: GetUsers
+      parameters:
+      - description: page number
+        in: query
+        name: page
+        type: integer
+      - description: limit number
+        in: query
+        name: limit
+        type: integer
+      - description: from date
+        in: query
+        name: from
+        type: string
+      - description: to date
+        in: query
+        name: to
+        type: string
+      - description: sort by
+        in: query
+        name: sort_by
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/github_com_saifhamdan_go-apigateway-blueprint_models_v1.User'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/github_com_saifhamdan_go-apigateway-blueprint_pkg_http.HttpResponse'
+      security:
+      - BearerAuth: []
+      tags:
+      - Users
+    post:
+      consumes:
+      - application/json
+      description: Create User
+      operationId: CreateUser
+      parameters:
+      - description: User
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_saifhamdan_go-apigateway-blueprint_models_v1.User'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/github_com_saifhamdan_go-apigateway-blueprint_models_v1.User'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_saifhamdan_go-apigateway-blueprint_pkg_http.HttpResponse'
+      security:
+      - BearerAuth: []
+      tags:
+      - Users
+  /api/v1/users/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete User
+      operationId: DeleteUser
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+          schema:
+            $ref: '#/definitions/github_com_saifhamdan_go-apigateway-blueprint_pkg_http.HttpResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_saifhamdan_go-apigateway-blueprint_pkg_http.HttpResponse'
+      security:
+      - BearerAuth: []
+      tags:
+      - Users
+    get:
+      consumes:
+      - application/json
+      description: Get User
+      operationId: GetUser
+      parameters:
+      - description: User ID
+        in: path
+        name: username
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_saifhamdan_go-apigateway-blueprint_models_v1.User'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/github_com_saifhamdan_go-apigateway-blueprint_pkg_http.HttpResponse'
+      security:
+      - BearerAuth: []
+      tags:
+      - Users
+    put:
+      consumes:
+      - application/json
+      description: Update User
+      operationId: UpdateUser
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: User
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_saifhamdan_go-apigateway-blueprint_models_v1.User'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_saifhamdan_go-apigateway-blueprint_models_v1.User'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_saifhamdan_go-apigateway-blueprint_pkg_http.HttpResponse'
+      security:
+      - BearerAuth: []
+      tags:
+      - Users
+schemes:
+- http
+- https
+securityDefinitions:
+  BasicAuth:
+    type: basic
+  BearerAuth:
+    description: Type "BearerAuth" followed by a space and Access token.
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"

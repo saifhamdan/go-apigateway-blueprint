@@ -1,0 +1,5 @@
+# Ignore Logs File
+logs
+
+# Ignore .env file containing credentials
+.env
